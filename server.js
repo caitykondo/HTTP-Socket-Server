@@ -1,5 +1,10 @@
 const net = require('net');
+const _404 = require('./404.js');
+const helium = require('./helium.js');
+const hydrogen = require('./hydrogen.js');
 const index = require('./index.js');
+const styles = require('./styles.js');
+
 
 const server = net.createServer((socket) => {
   // 'connection' listener
@@ -13,12 +18,17 @@ const server = net.createServer((socket) => {
     let date = new Date().toUTCString();
     let header = "HTTP/1.1\n" + "Server-Name: ThisServer\nDate: " + date + "\n";
 
-    if(requestMethod === 'HEAD'){
+    if(requestMethod === 'HEAD') {
       socket.write(header); //the returned header
       socket.end();
     }
-    else if (requestMethod === 'GET'){
+    else if(requestMethod === 'GET') {
       socket.write("\n" + header + "\n");
+      if(requestURI === '/helium.html') {
+        socket.write(helium);
+      } else if(requestURI === '/hydrogen.html') {
+        socket.write(hydrogen);
+      } else if(requestURI === '/index.html' || '/');
       socket.write(index);
       socket.end();
     }
