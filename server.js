@@ -1,4 +1,5 @@
 const net = require('net');
+const index = require('./index.js');
 
 const server = net.createServer((socket) => {
   // 'connection' listener
@@ -10,31 +11,27 @@ const server = net.createServer((socket) => {
     let requestMethod = requestArr[0];
     let requestURI = requestArr[1];
     let date = new Date().toUTCString();
+    let header = "HTTP/1.1\n" + "Server-Name: ThisServer\nDate: " + date + "\n";
     // console.log(requestArr);
     console.log(requestMethod);
     // console.log(requestURI);
     // console.log(socket.address());
 
-    // if method = get then return info on URI page
-    // if(requestMethod === 'GET') {
-    //   console.log(requestURI);
-    //   socket.write(`HTTP/1.1 200 OK
-    //     Date: 12,
-    //     Server: ServerName
-    //   `);
-    // }
+  socket.on('connect', () => {
+    console.log('connected!');
+  });
 
     // Request Line: [METHOD] [Request URI] [HTTP Version]
     // Blank Space
     // Request Header: key value pairs separated by :
     if(requestMethod === 'HEAD'){
-      socket.write("HTTP/1.1\n" + "Server-Name: ThisServer\nDate " + date + "\n"); //the returned header
+      socket.write(header); //the returned header
+      socket.end();
     }
     else if (requestMethod === 'GET'){
-
+      socket.write(index());
+      socket.end();  
     }
-    }
-  // console.log('GET ' + requestURI + ' HTTP/1.1' + '\n\n' + 'Date: ' + new Date().toUTCString() + '\n' + 'Server: ServerName');
 
   });
 
