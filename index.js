@@ -1,4 +1,4 @@
-module.exports = function (){ 
+module.exports = (function (){
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,4 +20,4 @@ module.exports = function (){
   </ol>
 </body>
 </html>`;
-};
+})();
