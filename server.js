@@ -11,7 +11,7 @@ const server = net.createServer((socket) => {
     let requestURI = requestArr[1];
     let date = new Date().toUTCString();
     // console.log(requestArr);
-    // console.log(requestMethod);
+    console.log(requestMethod);
     // console.log(requestURI);
     // console.log(socket.address());
 
@@ -27,12 +27,13 @@ const server = net.createServer((socket) => {
     // Request Line: [METHOD] [Request URI] [HTTP Version]
     // Blank Space
     // Request Header: key value pairs separated by :
-    // if(requestMethod === 'GET') {
-      console.log(chunk);
-      // socket.write('HTTP/1.1\n' + 'Date: ' + date + '\n' + 'Server: ServerName');
-      socket.write('HTTP/1.1\n' + 'Date: ' + date + '\n' + 'Server: ServerName');
+    if(requestMethod === 'HEAD'){
+      socket.write("HTTP/1.1\n" + "Server-Name: ThisServer\nDate " + date + "\n"); //the returned header
+    }
+    else if (requestMethod === 'GET'){
 
-    // }
+    }
+    }
   // console.log('GET ' + requestURI + ' HTTP/1.1' + '\n\n' + 'Date: ' + new Date().toUTCString() + '\n' + 'Server: ServerName');
 
   });
