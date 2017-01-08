@@ -5,9 +5,9 @@ const hydrogen = require('./hydrogen.js');
 const index = require('./index.js');
 const styles = require('./styles.js');
 
+const PORT = process.env.PORT || 8080;
 
 const server = net.createServer((socket) => {
-  // 'connection' listener
   console.log('client connected');
   socket.setEncoding('utf8');
 
@@ -19,7 +19,7 @@ const server = net.createServer((socket) => {
     let header = "HTTP/1.1\n" + "Server-Name: ThisServer\nDate: " + date + "\n";
 
     if(requestMethod === 'HEAD') {
-      socket.write(header); //the returned header
+      socket.write(header);
       socket.end();
     }
     else if(requestMethod === 'GET') {
@@ -28,8 +28,11 @@ const server = net.createServer((socket) => {
         socket.write(helium);
       } else if(requestURI === '/hydrogen.html') {
         socket.write(hydrogen);
-      } else if(requestURI === '/index.html' || '/');
-      socket.write(index);
+      } else if(requestURI === '/index.html' || requestURI === '/'){
+        socket.write(index);
+      } else {
+        socket.write(_404);
+      }
       socket.end();
     }
   });
@@ -44,6 +47,6 @@ server.on('error', (err) => {
   throw err;
 });
 
-server.listen(8080, '0.0.0.0', () => {
+server.listen(PORT, () => {
   console.log('opened server on ', server.address());
 });

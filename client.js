@@ -1,14 +1,14 @@
 const net = require('net');
+const PORT = process.env.PORT || 8080;
 
-let client = net.createConnection(8080, '0.0.0.0');
+
+let client = net.createConnection(PORT);
 
 client.on('connect', () => {
   console.log('connected to server');
-  // process.stdin.pipe(client);
 });
 
 client.on('data', (chunk) => {
-  // fs
 });
 
 client.on('end', () => {
