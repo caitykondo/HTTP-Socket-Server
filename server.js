@@ -23,7 +23,7 @@ const server = net.createServer((socket) => {
       socket.end();
     }
     else if(requestMethod === 'GET') {
-      socket.write("\n" + header + "\n");
+      socket.write(header + "\n");
       if(requestURI === '/helium.html') {
         socket.write(helium);
       } else if(requestURI === '/hydrogen.html') {
