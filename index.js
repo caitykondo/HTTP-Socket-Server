@@ -1,5 +1,5 @@
-module.exports = (function (){
-  return `<!DOCTYPE html>
+module.exports =
+`<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -20,4 +20,3 @@ module.exports = (function (){
   </ol>
 </body>
 </html>`;
-})();
